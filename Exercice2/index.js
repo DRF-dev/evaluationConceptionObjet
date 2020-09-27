@@ -14,7 +14,10 @@ var DrawBar = function DrawBar(sum, nbr) {
  * percentageBarLoaded : return a percentage of the drawBar loaded
  */
 DrawBar.prototype.percentageBarLoaded = function() {
-  return (100 * this.nbr)/this.sum
+  if (this.sum <= this.nbr) {
+    return 100;
+  }
+  return (100 * this.nbr)/this.sum;
 }
 
 /**
