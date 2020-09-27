@@ -10,6 +10,16 @@ var DrawBar = function DrawBar(sum, nbr) {
   this.nbr = nbr;
 }
 
+/**
+ * percentageBarLoaded : return a percentage of the drawBar loaded
+ */
+DrawBar.prototype.percentageBarLoaded = function() {
+  return (100 * this.nbr)/this.sum
+}
+
+/**
+ * run : create a drawbar with the loaded part colored in green
+ */
 DrawBar.prototype.run = function() {
   var drawBar = document.createElement('div');
   var fullBar = document.createElement('div');
@@ -19,10 +29,13 @@ DrawBar.prototype.run = function() {
   drawBar.style.margin = "0 auto";
   drawBar.style.border = "1px solid black";
 
-  fullBar.style.width = "40%";
+  fullBar.style.width = this.percentageBarLoaded() + "%";
   fullBar.style.height = "100%";
   fullBar.style.backgroundColor = "green";
 
   drawBar.appendChild(fullBar);
   document.body.appendChild(drawBar);
 }
+
+var loading = new DrawBar(144, 122);
+loading.run();
