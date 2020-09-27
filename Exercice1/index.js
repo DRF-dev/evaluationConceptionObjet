@@ -48,7 +48,7 @@ GridGenerator.prototype.generateRandomColor = function() {
 
 /**
  * changeColor : a method who will change a color of a square of our choice
- * @param {Number} numberOfColumnToColorize : parameter who will indicate us the square who we will change the color
+ * @param {Number} indexOfTheSquare : parameter who will indicate us the square who we will change the color
  */
 GridGenerator.prototype.changeColor = function(indexOfTheSquare) {
   var allSquare = document.querySelectorAll('th');
