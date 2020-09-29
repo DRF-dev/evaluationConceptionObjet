@@ -1,9 +1,15 @@
 'use strict';
 
+/**
+ * MyMorpionXO the class who contain our morpion game
+ */
 var MyMorpionXO = function MyMorpionXO() {
 
 }
 
+/**
+ * createNewTable : create the first or new interface to play at morpion
+ */
 MyMorpionXO.prototype.createNewTable = function() {
   var table = document.createElement('table');
   table.style.borderCollapse = "collapse";
