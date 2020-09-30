@@ -4,7 +4,7 @@
  * MyMorpionXO the class who contain our morpion game
  */
 var MyMorpionXO = function MyMorpionXO() {
-
+  this.round = 0;
 }
 
 /**
@@ -41,12 +41,20 @@ MyMorpionXO.prototype.createNewTable = function() {
   document.body.appendChild(table);
 }
 
+/**
+ * turn : describe all actions who will append during this turn
+ * @param {e} e : This is the event who activate this method 
+ */
 MyMorpionXO.prototype.turn = function(e) {
+  this.round++;
   //If the square is not a "th" or is occupated, we canceld 
   if (e.target.tagName !== "TH" || e.target.hasChildNodes()) {
     return;
   }
-  e.target.appendChild(this.cross());
+  if (this.round % 2 === 0) {
+    return e.target.appendChild(this.cross());
+  }
+  return e.target.appendChild(this.circle());
 }
 
 /**
@@ -92,11 +100,11 @@ MyMorpionXO.prototype.run = function() {
     this.createNewTable();
   }
   var squares = document.querySelectorAll('th');
-  for (var i = 0; i < squares.length; i++) {
-    squares[i].addEventListener('click', function(e) {
+  squares.forEach(function(square) {
+    square.addEventListener('click', function(e) {
       this.turn(e);
     }.bind(this));
-  }
+  }.bind(this))
 }
 
 var morpion = new MyMorpionXO();
