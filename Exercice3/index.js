@@ -8,10 +8,11 @@ var MyMorpionXO = function MyMorpionXO() {
   this.end = false;
   this.victoryPlayer1 = 0;
   this.victoryPlayer2 = 0;
+  this.numberGames = 0;
 }
 
 /**
- * createNewTable : create the first or new interface to play at morpion
+ * createNewTable : create a table to play
  */
 MyMorpionXO.prototype.createNewTable = function() {
   this.numberOfVictory();
@@ -47,11 +48,10 @@ MyMorpionXO.prototype.createNewTable = function() {
 }
 
 /**
- * turn : describe all actions who will append during this turn
- * @param {e} e : This is the event who activate this method 
+ * turn : describe all actions that will append during this turn
+ * @param {Event} e : This is the event that activate this method 
  */
 MyMorpionXO.prototype.turn = function(e) {
-  //If the square is not a "th" or is occupated, we canceld 
   if (e.target.tagName !== "TH" || e.target.hasChildNodes() || this.end) {
     return;
   }
@@ -62,7 +62,7 @@ MyMorpionXO.prototype.turn = function(e) {
   return e.target.appendChild(this.circle());
 }
 /**
- * endGame : verify if one of the player have win or not
+ * endGame : verify if one of the player has won
  */
 MyMorpionXO.prototype.endGame = function() {
   if (this.end) {
@@ -130,36 +130,48 @@ MyMorpionXO.prototype.cross = function() {
 }
 
 /**
- * messageVictory : show the message of vitory
+ * messageVictory : show the message of victory
  * @param {Number} player : the player 1 or the player 2
  */
 MyMorpionXO.prototype.messagesVictory = function(player) {
+  this.end = true;
   var messagesWin = document.createElement('span');
   var player1 = document.querySelector('.player1');
   var player2 = document.querySelector('.player2');
+  var buttonNewGame = document.createElement('button');
   messagesWin.textContent = "Felicitation joueur " + player + " , vous avez gagné !";
   player1.textContent = "Player 1 victory : " + this.victoryPlayer1;
   player2.textContent = "Player 2 victory : " + this.victoryPlayer2;
-  this.end = true;
+  buttonNewGame.textContent = "New game ?";
+  buttonNewGame.addEventListener('click', function() {
+    document.body.innerHTML = "";
+    this.end = false;
+    this.run();
+  }.bind(this));
   document.body.appendChild(messagesWin);
+  document.body.appendChild(buttonNewGame);
 }
 
 /**
- * numberOfVictory : show a message with the number of victory of every players
+ * numberOfVictory : shows a message with the number of victory of each players
  */
 MyMorpionXO.prototype.numberOfVictory = function() {
+  this.numberGames++;
   var grid = document.createElement('div');
   grid.style.width = "100%";
   grid.style.display = "flex";
   grid.style.margin = "2% 0";
   grid.style.justifyContent = "space-around";
+  var numberOfGame = document.createElement('span');
   var player1victory = document.createElement('span');
   var player2victory = document.createElement('span');
   player1victory.textContent = "Player 1 victory : " + this.victoryPlayer1;
   player1victory.className = "player1";
   player2victory.textContent = "Player 2 victory : " + this.victoryPlayer2;
   player2victory.className = "player2";
+  numberOfGame.textContent = "Number of game : " + this.numberGames; 
   grid.appendChild(player1victory);
+  grid.appendChild(numberOfGame);
   grid.appendChild(player2victory);
   document.body.appendChild(grid);
 }
