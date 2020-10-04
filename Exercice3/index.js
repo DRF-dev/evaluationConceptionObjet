@@ -8,6 +8,7 @@ var MyMorpionXO = function MyMorpionXO() {
   this.end = false;
   this.victoryPlayer1 = 0;
   this.victoryPlayer2 = 0;
+  this.draw = 0;
   this.numberGames = 0;
 }
 
@@ -90,6 +91,16 @@ MyMorpionXO.prototype.endGame = function() {
     this.victoryPlayer2++;
     this.messagesVictory(2);
   }
+
+  //If one of the square has no child, the game continue, else it is a draw
+  for (var i = 0; i < squares.length; i++) {
+    if (!squares[i].hasChildNodes()) {
+      return;
+    }
+  }
+
+  this.draw++;
+  this.messagesVictory();  
 }
 
 /**
@@ -138,10 +149,12 @@ MyMorpionXO.prototype.messagesVictory = function(player) {
   var messagesWin = document.createElement('span');
   var player1 = document.querySelector('.player1');
   var player2 = document.querySelector('.player2');
+  var draw = document.querySelector('.draw');
   var buttonNewGame = document.createElement('button');
-  messagesWin.textContent = "Felicitation joueur " + player + " , vous avez gagné !";
+  player? messagesWin.textContent = "Felicitation joueur " + player + " , vous avez gagné !" : messagesWin.textContent = "C'est une égalité :( ";
   player1.textContent = "Player 1 victory : " + this.victoryPlayer1;
   player2.textContent = "Player 2 victory : " + this.victoryPlayer2;
+  draw.textContent = "Number of draw : " + this.draw;
   buttonNewGame.textContent = "New game ?";
   buttonNewGame.addEventListener('click', function() {
     document.body.innerHTML = "";
@@ -156,23 +169,27 @@ MyMorpionXO.prototype.messagesVictory = function(player) {
  * numberOfVictory : shows a message with the number of victory of each players
  */
 MyMorpionXO.prototype.numberOfVictory = function() {
-  this.numberGames++;
   var grid = document.createElement('div');
+  var numberOfGame = document.createElement('span');
+  var player1victory = document.createElement('span');
+  var player2victory = document.createElement('span');
+  var draw = document.createElement('span');
+  this.numberGames++;
   grid.style.width = "100%";
   grid.style.display = "flex";
   grid.style.margin = "2% 0";
   grid.style.justifyContent = "space-around";
-  var numberOfGame = document.createElement('span');
-  var player1victory = document.createElement('span');
-  var player2victory = document.createElement('span');
   player1victory.textContent = "Player 1 victory : " + this.victoryPlayer1;
   player1victory.className = "player1";
   player2victory.textContent = "Player 2 victory : " + this.victoryPlayer2;
   player2victory.className = "player2";
+  draw.textContent = "Number of draw : " + this.draw;
+  draw.className = "draw";
   numberOfGame.textContent = "Number of game : " + this.numberGames; 
   grid.appendChild(player1victory);
-  grid.appendChild(numberOfGame);
   grid.appendChild(player2victory);
+  grid.appendChild(draw);
+  grid.appendChild(numberOfGame);
   document.body.appendChild(grid);
 }
 
