@@ -46,6 +46,7 @@ MyMorpionXO.prototype.createNewTable = function() {
     table.appendChild(line);
   }
   document.body.appendChild(table);
+  this.whoIsPlaying();
 }
 
 /**
@@ -57,15 +58,16 @@ MyMorpionXO.prototype.turn = function(e) {
     return;
   }
   this.round++;
+  this.whoIsPlaying();
   if (this.round % 2 === 0) {
     return e.target.appendChild(this.cross());
   }
   return e.target.appendChild(this.circle());
 }
 /**
- * endGame : verify if one of the player has won
+ * isEndGame : verify if one of the player has won
  */
-MyMorpionXO.prototype.endGame = function() {
+MyMorpionXO.prototype.isEndGame = function() {
   if (this.end) {
     return;
   }
@@ -140,6 +142,18 @@ MyMorpionXO.prototype.cross = function() {
   return cross;
 }
 
+MyMorpionXO.prototype.whoIsPlaying = function() {
+  var playerIsPlaying;
+  if (!document.querySelector('.whoIsPlaying')) {
+    playerIsPlaying = document.createElement('p');
+    this.round % 2 === 0 ? playerIsPlaying.textContent = "C'est le tour des cercles (J1)" : playerIsPlaying.textContent = "C'est le tour des croix (J2)";
+    playerIsPlaying.className = "whoIsPlaying";
+    return document.body.appendChild(playerIsPlaying);
+  }
+  playerIsPlaying = document.querySelector('.whoIsPlaying');
+  return this.round % 2 === 0 ? playerIsPlaying.textContent = "C'est le tour des cercles (J1)" : playerIsPlaying.textContent = "C'est le tour des croix (J2)";
+}
+
 /**
  * messageVictory : show the message of victory
  * @param {Number} player : the player 1 or the player 2
@@ -204,7 +218,7 @@ MyMorpionXO.prototype.run = function() {
   squares.forEach(function(square) {
     square.addEventListener('click', function(e) {
       this.turn(e);
-      this.endGame();
+      this.isEndGame();
     }.bind(this));
   }.bind(this))
 }
