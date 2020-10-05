@@ -1,9 +1,6 @@
 'use script';
 
-var WorldMap = function WorldMap() {
-  this.renderWorldMap();
-  this.changeColor();
-}
+var WorldMap = function WorldMap() {}
 
 WorldMap.prototype.renderWorldMap = function() {
   document.body.insertAdjacentHTML('beforeend', `
@@ -757,4 +754,21 @@ WorldMap.prototype.changeColor = function() {
   })
 }
 
+WorldMap.prototype.showLegend = function() {
+  var legend = document.createElement('legend');
+  document.querySelectorAll('path').forEach(function(path) {
+    path.addEventListener('mouseenter', function() {
+      legend.textContent = path.id;
+    })
+  })
+  document.body.appendChild(legend);
+}
+
+WorldMap.prototype.run = function() {
+  this.renderWorldMap();
+  this.changeColor();
+  this.showLegend();
+}
+
 var world = new WorldMap();
+world.run();
