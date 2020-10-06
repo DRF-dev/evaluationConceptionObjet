@@ -165,7 +165,12 @@ MyMorpionXO.prototype.messagesVictory = function(player) {
   var player2 = document.querySelector('.player2');
   var draw = document.querySelector('.draw');
   var buttonNewGame = document.createElement('button');
-  player? messagesWin.textContent = "Felicitation joueur " + player + " , vous avez gagné !" : messagesWin.textContent = "C'est une égalité :( ";
+  if (this.victoryPlayer1 === 3 || this.victoryPlayer2 === 2) {
+    messagesWin.textContent = "Felicitation joueur " + player + " , vous avez gagné cette partie !"
+    document.body.appendChild(messagesWin);
+    return;
+  }
+  player? messagesWin.textContent = "Felicitation joueur " + player + " , vous avez gagné ce points !" : messagesWin.textContent = "C'est une égalité :( ";
   player1.textContent = "Player 1 victory : " + this.victoryPlayer1;
   player2.textContent = "Player 2 victory : " + this.victoryPlayer2;
   draw.textContent = "Number of draw : " + this.draw;
