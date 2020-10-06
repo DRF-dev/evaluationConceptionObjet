@@ -1,7 +1,13 @@
 'use script';
 
+/**
+ * WorldMap : Class that control our world map
+ */
 var WorldMap = function WorldMap() {}
 
+/**
+ * renderWorldMap : add the world map in our html file
+ */
 WorldMap.prototype.renderWorldMap = function() {
   document.body.insertAdjacentHTML('beforeend', `
   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -733,6 +739,9 @@ WorldMap.prototype.renderWorldMap = function() {
   `);
 }
 
+/**
+ * changeColor : add the event that can modify the colors
+ */
 WorldMap.prototype.changeColor = function() {
   var paths = document.querySelectorAll('path'); 
   paths.forEach(function(path) {
@@ -754,6 +763,9 @@ WorldMap.prototype.changeColor = function() {
   })
 }
 
+/**
+ * showLegend : add a legend that show us the current country
+ */
 WorldMap.prototype.showLegend = function() {
   var legend = document.createElement('legend');
   document.querySelectorAll('path').forEach(function(path) {
@@ -764,6 +776,9 @@ WorldMap.prototype.showLegend = function() {
   document.body.appendChild(legend);
 }
 
+/**
+ * run : run our methods
+ */
 WorldMap.prototype.run = function() {
   this.renderWorldMap();
   this.changeColor();
