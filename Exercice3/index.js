@@ -142,6 +142,9 @@ MyMorpionXO.prototype.cross = function() {
   return cross;
 }
 
+/**
+ * whoIsPlaying : add a message with the name of the player who have to play
+ */
 MyMorpionXO.prototype.whoIsPlaying = function() {
   var playerIsPlaying;
   if (!document.querySelector('.whoIsPlaying')) {
