@@ -27,6 +27,15 @@ CheckPhoneNumber.prototype.generateElement = function(element, type, className, 
 }
 
 /**
+ * Check if the phone number began with a 01, 06 or 07
+ * @param {number} phoneNumber the phone number
+ */
+CheckPhoneNumber.prototype.regex = function(phoneNumber) {
+  var regex = /^0[167]+/;
+  return regex.test(phoneNumber);
+}
+
+/**
  * Create a html form
  */
 CheckPhoneNumber.prototype.createForm = function() {
@@ -45,6 +54,9 @@ CheckPhoneNumber.prototype.createForm = function() {
   document.body.appendChild(form);
 }
 
+/**
+ * check the value in the input
+ */
 CheckPhoneNumber.prototype.check = function() {
   var phoneNumber = document.querySelector('input').value
   if (phoneNumber.length !== 10) {
@@ -53,9 +65,12 @@ CheckPhoneNumber.prototype.check = function() {
   if (typeof Number(phoneNumber) !== 'number') {
     return alert('Ce numéro de téléphone ne contient pas que des chiffres')
   }
-  return alert('Ce numéro de téléphone est correct')
+  return alert(this.regex(phoneNumber))
 }
 
+/**
+ * Run the app
+ */
 CheckPhoneNumber.prototype.run = function() {
   this.createForm()
 }
