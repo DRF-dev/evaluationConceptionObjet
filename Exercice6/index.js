@@ -26,17 +26,34 @@ CheckPhoneNumber.prototype.generateElement = function(element, type, className, 
   return container;
 }
 
+/**
+ * Create a html form
+ */
 CheckPhoneNumber.prototype.createForm = function() {
   var form = document.createElement('form');
   var htmlElements = {
     'input': this.generateElement('input', 'number', 'input', 'phone number'),
-    'button': this.generateElement('button', 'submit', 'button', null, 'Check')
+    'button': this.generateElement('button', 'button', 'button', null, 'Check')
   };
 
+  htmlElements['button'].addEventListener('click', function() {
+    this.check()
+  }.bind(this))
   for (var key in htmlElements) {
     form.appendChild(htmlElements[key]);
   }
   document.body.appendChild(form);
+}
+
+CheckPhoneNumber.prototype.check = function() {
+  var phoneNumber = document.querySelector('input').value
+  if (phoneNumber.length !== 10) {
+    return alert('Ce numéro de téléphone ne contient pas 10 chiffres')
+  }
+  if (typeof Number(phoneNumber) !== 'number') {
+    return alert('Ce numéro de téléphone ne contient pas que des chiffres')
+  }
+  return alert('Ce numéro de téléphone est correct')
 }
 
 CheckPhoneNumber.prototype.run = function() {
