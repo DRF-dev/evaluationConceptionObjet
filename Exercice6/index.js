@@ -46,8 +46,8 @@ CheckPhoneNumber.prototype.createForm = function() {
   };
 
   htmlElements['button'].addEventListener('click', function() {
-    this.check()
-  }.bind(this))
+    this.check();
+  }.bind(this));
   for (var key in htmlElements) {
     form.appendChild(htmlElements[key]);
   }
@@ -60,12 +60,12 @@ CheckPhoneNumber.prototype.createForm = function() {
 CheckPhoneNumber.prototype.check = function() {
   var phoneNumber = document.querySelector('input').value
   if (phoneNumber.length !== 10) {
-    return alert('Ce numéro de téléphone ne contient pas 10 chiffres')
+    return alert('Ce numéro de téléphone ne contient pas 10 chiffres');
   }
   if (typeof Number(phoneNumber) !== 'number') {
-    return alert('Ce numéro de téléphone ne contient pas que des chiffres')
+    return alert('Ce numéro de téléphone ne contient pas que des chiffres');
   }
-  return alert(this.regex(phoneNumber))
+  return alert(this.regex(phoneNumber));
 }
 
 /**
