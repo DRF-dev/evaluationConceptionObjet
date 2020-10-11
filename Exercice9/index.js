@@ -27,7 +27,6 @@ CheckPalindrome.prototype.isPalindrome = function(isUniqueWord) {
  */
 CheckPalindrome.prototype.checkIsPalindrome = function() {
   if (this.str.split(' ').length > 1) {
-    console.log("phrase")
     return this.isPalindrome(false);
   }
   return this.isPalindrome(true);
