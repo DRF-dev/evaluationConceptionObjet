@@ -26,7 +26,6 @@ var NavalBattle = function NavalBattle() {
 NavalBattle.prototype.generateMap = function() {
   var table = document.createElement('table');
   table.style.borderCollapse = "collapse";
-  table.style.margin = "auto";
   for (var i = 0; i < this.init.length; i++) {
     var line = document.createElement('tr');
     for (var j = 0; j < this.init[i].length; j++) {
@@ -46,6 +45,37 @@ NavalBattle.prototype.generateMap = function() {
 }
 
 /**
+ * Generate a boat on the list
+ * @param {string} textContent the name of the boat
+ * @param {string} className the className of the element
+ */
+NavalBattle.prototype.generateBoat = function(textContent, className) {
+  var element = document.createElement('li');
+  element.textContent = textContent;
+  element.className = className;
+  return element;
+}
+
+/**
+ * Generate the list of all boats
+ */
+NavalBattle.prototype.generateName = function() {
+  var list = document.createElement('ul');
+  var listElement = {
+    'boat1': this.generateBoat('Chaloupe', 'chaloupe'),
+    'boat2': this.generateBoat('Barque', 'barque'),
+    'boat3': this.generateBoat('Navire', 'navire'),
+    'boat4': this.generateBoat('Porte-avion CDG', 'porteAvion'),
+    'boat5': this.generateBoat('Sous-marin nucléaire', 'sousMarin')
+  }
+
+  for (const key in listElement) {
+    list.appendChild(listElement[key]);
+  }
+  document.body.appendChild(list);
+}
+
+/**
  * Verify if the square have a boat or not
  * @param {Event} e the event that call this method
  */
@@ -56,5 +86,13 @@ NavalBattle.prototype.haveBoat = function(e) {
   e.target.style.backgroundColor = 'blue';
 }
 
+NavalBattle.prototype.fixPositions = function() {
+  document.body.style.display = 'flex';
+  document.body.style.flexDirection = 'column';
+  document.body.style.alignItems = 'center';
+}
+
 var game = new NavalBattle();
+game.fixPositions();
 game.generateMap();
+game.generateName();
