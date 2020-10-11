@@ -87,6 +87,7 @@ NavalBattle.prototype.haveBoat = function(e) {
     this.isBoatAlive('3', 'navire');
     this.isBoatAlive('4', 'porteAvion');
     this.isBoatAlive('5', 'sousMarin')
+    this.isWin();
     return;
   }
   e.target.style.backgroundColor = 'blue';
@@ -118,7 +119,27 @@ NavalBattle.prototype.isBoatAlive = function(boatsClass, boatNameInList) {
   boatName.style.textDecoration = 'line-through';
 }
 
+/**
+ * Verify if all the boats are note alive
+ */
+NavalBattle.prototype.isWin = function() {
+  var listNames = document.querySelectorAll('li');
+  var messageVictory = document.createElement('span');
+  for (var i = 0; i < listNames.length; i++) {
+    if (!Boolean(listNames[i].style.textDecoration)) {
+      return;
+    }
+  }
+  messageVictory.textContent = "Congratulation ! You win";
+  messageVictory.style.color = 'red';
+  document.body.appendChild(messageVictory);
+}
+
+NavalBattle.prototype.run = function() {
+  this.fixPositions();
+  this.generateMap();
+  this.generateName();
+}
+
 var game = new NavalBattle();
-game.fixPositions();
-game.generateMap();
-game.generateName();
+game.run();
