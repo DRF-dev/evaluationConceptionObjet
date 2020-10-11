@@ -22,5 +22,12 @@ CheckPalindrome.prototype.isPalindrome = function(isUniqueWord) {
   return backwards === lowerStr;
 }
 
+CheckPalindrome.prototype.checkIsPalindrome = function() {
+  if (this.str.split(' ').length > 1) {
+    return this.isPalindrome(false);
+  }
+  return this.isPalindrome(true);
+}
+
 var newPalindrome = new CheckPalindrome('kayaks');
-console.log(newPalindrome.isPalindrome(true))
+console.log(newPalindrome.checkIsPalindrome());
