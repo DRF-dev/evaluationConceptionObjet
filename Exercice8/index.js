@@ -62,11 +62,11 @@ NavalBattle.prototype.generateBoat = function(textContent, className) {
 NavalBattle.prototype.generateName = function() {
   var list = document.createElement('ul');
   var listElement = {
-    'boat1': this.generateBoat('Chaloupe', 'chaloupe'),
-    'boat2': this.generateBoat('Barque', 'barque'),
-    'boat3': this.generateBoat('Navire', 'navire'),
-    'boat4': this.generateBoat('Porte-avion CDG', 'porteAvion'),
-    'boat5': this.generateBoat('Sous-marin nucléaire', 'sousMarin')
+    'boat1': this.generateBoat('Chaloupe (2 cases)', 'chaloupe'),
+    'boat2': this.generateBoat('Barque (3 cases)', 'barque'),
+    'boat3': this.generateBoat('Navire (4 cases)', 'navire'),
+    'boat4': this.generateBoat('Porte-avion CDG (5 cases)', 'porteAvion'),
+    'boat5': this.generateBoat('Sous-marin nucléaire (5 cases)', 'sousMarin')
   }
 
   for (const key in listElement) {
@@ -81,15 +81,41 @@ NavalBattle.prototype.generateName = function() {
  */
 NavalBattle.prototype.haveBoat = function(e) {
   if (Number(e.target.className) > 0) {
-    return e.target.style.backgroundColor = 'red';
+    e.target.style.backgroundColor = 'red';
+    this.isBoatAlive('1', 'chaloupe');
+    this.isBoatAlive('2', 'barque');
+    this.isBoatAlive('3', 'navire');
+    this.isBoatAlive('4', 'porteAvion');
+    this.isBoatAlive('5', 'sousMarin')
+    return;
   }
   e.target.style.backgroundColor = 'blue';
 }
 
+/**
+ * Fix the position of all items
+ */
 NavalBattle.prototype.fixPositions = function() {
   document.body.style.display = 'flex';
   document.body.style.flexDirection = 'column';
   document.body.style.alignItems = 'center';
+}
+
+/**
+ * isBoatAlive : verify if the boat is alive and cross out the text in the list
+ * @param {string} boatsClass class name of the boat
+ * @param {string} boatNameInList class name of the element in the list
+ */
+NavalBattle.prototype.isBoatAlive = function(boatsClass, boatNameInList) {
+  //var boats = document.querySelectorAll('.1'); Ne fonctionne pas
+  var boats = document.getElementsByClassName(boatsClass);
+  var boatName = document.querySelector('.' + boatNameInList);
+  for (var i = 0; i < boats.length; i++) {
+    if(!Boolean(boats[i].style.backgroundColor)) {
+      return;
+    }
+  }
+  boatName.style.textDecoration = 'line-through';
 }
 
 var game = new NavalBattle();
