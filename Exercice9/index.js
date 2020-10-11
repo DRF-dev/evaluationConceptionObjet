@@ -17,17 +17,38 @@ CheckPalindrome.prototype.isPalindrome = function(isUniqueWord) {
   var arrayStr = isUniqueWord? lowerStr.split('') : lowerStr.split(' ');
   var backwards = '';
   for (var i = arrayStr.length - 1; i >= 0; i--) {
-    backwards += arrayStr[i]
+    backwards += arrayStr[i] + (isUniqueWord || i === 0? '' : ' ');
   }
   return backwards === lowerStr;
 }
 
+/**
+ * Detect if str is a word or a sentence
+ */
 CheckPalindrome.prototype.checkIsPalindrome = function() {
   if (this.str.split(' ').length > 1) {
+    console.log("phrase")
     return this.isPalindrome(false);
   }
   return this.isPalindrome(true);
 }
 
-var newPalindrome = new CheckPalindrome('kayaks');
-console.log(newPalindrome.checkIsPalindrome());
+/**
+ * Run our app
+ */
+CheckPalindrome.prototype.run = function() {
+  var textHtml = {
+    'str': document.createElement('p'),
+    'isPalindrome': document.createElement('span')
+  }
+
+  textHtml['str'].textContent = (this.str.split(' ').length > 1? 'La phrase':'Le mot') + ' a vérifier si il s\'agit d\'un palindrome est : ' + this.str;
+  textHtml['isPalindrome'].textContent = (this.checkIsPalindrome()? 'C\'est ':'Ce n\'est pas ') + 'un palindrome';
+
+  for (const key in textHtml) {
+    document.body.appendChild(textHtml[key])
+  }
+}
+
+var newPalindrome = new CheckPalindrome('Ceci est ceci');
+newPalindrome.run();
